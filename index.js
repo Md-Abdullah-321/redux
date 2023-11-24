@@ -1,62 +1,70 @@
+//reducer
+//store
 
 const { createStore } = require("redux");
 
-//definig constants
+//CONSTANTS
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
+const RESET = "RESET";
 
-//state
-const initialCounterState = {
-    count: 0,
+
+//state - count
+const initialState = {
+    count: 0
 }
 
 
 
-//action - an Object that has type & payload
-const incrementCounter = () => {
+//action - increment, decrement, reset
+const incrementAction = () => {
     return {
-        type: INCREMENT,
+        type: INCREMENT
     }
 }
-const decrementCounter = () => {
+const deccrementAction = () => {
     return {
-        type: DECREMENT,
+        type: DECREMENT
+    }
+}
+const resetAction = () => {
+    return {
+        type: RESET
     }
 }
 
 
-//create reducer for counter
-const counterReducer = (state = initialCounterState, action) => {
+//reducer
+const counterReducer = (state = initialState, action) => {
     switch (action.type) {
         case INCREMENT:
             return {
                 ...state,
-                count: state.count + 1,
+                count: state.count + 1
             };
-        case DECREMENT:
+        case DECREMENT: 
             return {
                 ...state,
-                count: state.count - 1,
+                count: state.count - 1 
+            };
+        case RESET: 
+            return {
+                ...state,
+                count: 0
             };
         default:
-            state;
+            return state;
     }
 }
 
-
-//create store
+//store
 const store = createStore(counterReducer);
-
 store.subscribe(() => {
     console.log(store.getState());
 })
 
-//dispatch action
-store.dispatch(incrementCounter());
-store.dispatch(decrementCounter());
-
-/** 1. state 
-    2. dispatch action
-    3. reducer 
-    4. update / store - getState(), dispatch(), subscribe()
-**/
+store.dispatch(incrementAction());
+store.dispatch(incrementAction());
+store.dispatch(incrementAction());
+store.dispatch(deccrementAction());
+store.dispatch(resetAction());
