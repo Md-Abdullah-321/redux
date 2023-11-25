@@ -17,9 +17,10 @@ const initialState = {
 
 
 //action - increment, decrement, reset
-const incrementAction = () => {
+const incrementAction = (value = 1) => {
     return {
-        type: INCREMENT
+        type: INCREMENT, 
+        payload: value
     }
 }
 const deccrementAction = () => {
@@ -40,7 +41,7 @@ const counterReducer = (state = initialState, action) => {
         case INCREMENT:
             return {
                 ...state,
-                count: state.count + 1
+                count: state.count + action.payload
             };
         case DECREMENT: 
             return {
@@ -64,7 +65,7 @@ store.subscribe(() => {
 })
 
 store.dispatch(incrementAction());
-store.dispatch(incrementAction());
-store.dispatch(incrementAction());
+store.dispatch(incrementAction(5));
+store.dispatch(incrementAction(5));
 store.dispatch(deccrementAction());
 store.dispatch(resetAction());
